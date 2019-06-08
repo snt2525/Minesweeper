@@ -62,8 +62,9 @@ public class Main {
 			}
 		}
 		System.out.println();
-		printGameManual();
+		printGameManual(); 
 		
+		//모든 사각형(100개)에 대한 계산을 result 배열에 넣어둔다. 
 		int qSize = mine.size();
 		for(int i = 0;i < qSize;i++) {
 			Pair tmp = mine.poll();
@@ -85,6 +86,7 @@ public class Main {
 			Queue<Pair> btn = new LinkedList<Pair>();
 			Pair tmpYX = putYX();
 			
+			//Game Over
 			if(map[tmpYX.y][tmpYX.x] == '*') {
 				printBoom();
 				System.out.println("[지뢰]가 폭발하여 게임이 종료되었습니다.");
@@ -105,6 +107,7 @@ public class Main {
 						if(!click[tmpY][tmpX] && map[tmpY][tmpX] != '*') {
 							click[tmpY][tmpX] = true;
 							clickCnt--;
+							//map의 숫자가 0일 경우, 연쇄적으로 숫자를 보여준기 위해 Queue에 해당 위치를 넣는다.
 							if(result[tmpY][tmpX] == 0) {
 								btn.add(new Pair(tmpY, tmpX));
 							}
@@ -121,6 +124,7 @@ public class Main {
 		System.out.println("좌표를 입력해주세요. :");
 		Pair tmp = new Pair(sc.nextInt() - 1, sc.nextInt() - 1);
 		
+		//이미 선택한 좌표를 다시 입력 할 경우 예외처리
 		while(click[tmp.y][tmp.x]) {
 			System.out.println("선택할 수 없는 좌표 입니다.");
 			System.out.println("좌표를 입력해주세요. :");
@@ -130,6 +134,7 @@ public class Main {
 		return tmp;
 	}
 	
+	//STEP마다 지뢰찾기 게임 MAP의 상태를 출력하여 준다.
 	public void printMap() {
 		System.out.println("       [MAP]");
 		for(int i = 0;i < 10;i++) {
@@ -141,6 +146,7 @@ public class Main {
 		System.out.println();
 	}
 	
+	//지뢰를 밟았을 때, 이 전에 선택한 MAP과 지뢰의 위치를 함께 출력하여 준다.
 	public void printBoom() {
 		System.out.println("       [MAP]");
 		for(int i = 0;i < 10;i++) {
